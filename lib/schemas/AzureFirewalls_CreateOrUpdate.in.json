@@ -1,0 +1,614 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "azureFirewallName": {
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "Common resource representation.",
+                    "properties": {
+                        "id": {
+                            "description": "Resource ID.",
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Resource location.",
+                            "type": "string"
+                        },
+                        "name": {
+                            "description": "Resource name.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Resource tags.",
+                            "type": "object"
+                        },
+                        "type": {
+                            "description": "Resource type.",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "Azure Firewall resource",
+            "properties": {
+                "etag": {
+                    "description": "Gets a unique read-only string that changes whenever the resource is updated.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "properties": {
+                    "x-ms-client-flatten": true,
+                    "description": "Properties of the Azure Firewall.",
+                    "properties": {
+                        "applicationRuleCollections": {
+                            "description": "Collection of application rule collections used by Azure Firewall.",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "description": "Reference to another subresource.",
+                                        "properties": {
+                                            "id": {
+                                                "description": "Resource ID.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "x-ms-azure-resource": true,
+                                        "type": "object"
+                                    }
+                                ],
+                                "description": "Application rule collection resource",
+                                "properties": {
+                                    "etag": {
+                                        "description": "Gets a unique read-only string that changes whenever the resource is updated.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Gets name of the resource that is unique within a resource group. This name can be used to access the resource.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "x-ms-client-flatten": true,
+                                        "description": "Properties of the application rule collection.",
+                                        "properties": {
+                                            "action": {
+                                                "description": "The action type of a rule collection",
+                                                "properties": {
+                                                    "type": {
+                                                        "description": "The type of action.",
+                                                        "enum": [
+                                                            "Allow",
+                                                            "Deny",
+                                                            "Alert"
+                                                        ],
+                                                        "type": "string",
+                                                        "x-ms-enum": {
+                                                            "modelAsString": true,
+                                                            "name": "AzureFirewallRCActionType"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "priority": {
+                                                "description": "Priority of the application rule collection resource.",
+                                                "exclusiveMaximum": false,
+                                                "exclusiveMinimum": false,
+                                                "format": "int32",
+                                                "maximum": 65000,
+                                                "minimum": 100,
+                                                "type": "integer"
+                                            },
+                                            "provisioningState": {
+                                                "description": "The current provisioning state.",
+                                                "enum": [
+                                                    "Succeeded",
+                                                    "Updating",
+                                                    "Deleting",
+                                                    "Failed"
+                                                ],
+                                                "readOnly": true,
+                                                "type": "string",
+                                                "x-ms-enum": {
+                                                    "modelAsString": true,
+                                                    "name": "ProvisioningState"
+                                                }
+                                            },
+                                            "rules": {
+                                                "description": "Collection of rules used by a application rule collection.",
+                                                "items": {
+                                                    "description": "Properties of an application rule.",
+                                                    "properties": {
+                                                        "description": {
+                                                            "description": "Description of the rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "fqdnTags": {
+                                                            "description": "List of FQDN Tags for this rule.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "name": {
+                                                            "description": "Name of the application rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "protocols": {
+                                                            "description": "Array of ApplicationRuleProtocols.",
+                                                            "items": {
+                                                                "description": "Properties of the application rule protocol.",
+                                                                "properties": {
+                                                                    "port": {
+                                                                        "description": "Port number for the protocol, cannot be greater than 64000. This field is optional.",
+                                                                        "exclusiveMaximum": false,
+                                                                        "exclusiveMinimum": false,
+                                                                        "format": "int32",
+                                                                        "maximum": 64000,
+                                                                        "minimum": 0,
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "protocolType": {
+                                                                        "description": "Protocol type",
+                                                                        "enum": [
+                                                                            "Http",
+                                                                            "Https"
+                                                                        ],
+                                                                        "type": "string",
+                                                                        "x-ms-enum": {
+                                                                            "modelAsString": true,
+                                                                            "name": "AzureFirewallApplicationRuleProtocolType"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "sourceAddresses": {
+                                                            "description": "List of source IP addresses for this rule.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "targetFqdns": {
+                                                            "description": "List of FQDNs for this rule.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            }
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "ipConfigurations": {
+                            "description": "IP configuration of the Azure Firewall resource.",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "description": "Reference to another subresource.",
+                                        "properties": {
+                                            "id": {
+                                                "description": "Resource ID.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "x-ms-azure-resource": true,
+                                        "type": "object"
+                                    }
+                                ],
+                                "description": "IP configuration of an Azure Firewall.",
+                                "properties": {
+                                    "etag": {
+                                        "description": "A unique read-only string that changes whenever the resource is updated.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Name of the resource that is unique within a resource group. This name can be used to access the resource.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "x-ms-client-flatten": true,
+                                        "description": "Properties of IP configuration of an Azure Firewall.",
+                                        "properties": {
+                                            "privateIPAddress": {
+                                                "description": "The Firewall Internal Load Balancer IP to be used as the next hop in User Defined Routes.",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "provisioningState": {
+                                                "description": "The current provisioning state.",
+                                                "enum": [
+                                                    "Succeeded",
+                                                    "Updating",
+                                                    "Deleting",
+                                                    "Failed"
+                                                ],
+                                                "readOnly": true,
+                                                "type": "string",
+                                                "x-ms-enum": {
+                                                    "modelAsString": true,
+                                                    "name": "ProvisioningState"
+                                                }
+                                            },
+                                            "publicIPAddress": {
+                                                "description": "Reference to another subresource.",
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "Resource ID.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "x-ms-azure-resource": true,
+                                                "type": "object"
+                                            },
+                                            "subnet": {
+                                                "description": "Reference to another subresource.",
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "Resource ID.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "x-ms-azure-resource": true,
+                                                "type": "object"
+                                            }
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "natRuleCollections": {
+                            "description": "Collection of NAT rule collections used by Azure Firewall.",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "description": "Reference to another subresource.",
+                                        "properties": {
+                                            "id": {
+                                                "description": "Resource ID.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "x-ms-azure-resource": true,
+                                        "type": "object"
+                                    }
+                                ],
+                                "description": "NAT rule collection resource",
+                                "properties": {
+                                    "etag": {
+                                        "description": "Gets a unique read-only string that changes whenever the resource is updated.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Gets name of the resource that is unique within a resource group. This name can be used to access the resource.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "x-ms-client-flatten": true,
+                                        "description": "Properties of the NAT rule collection.",
+                                        "properties": {
+                                            "action": {
+                                                "description": "The action type of a NAT rule collection",
+                                                "properties": {
+                                                    "type": {
+                                                        "description": "The type of action.",
+                                                        "enum": [
+                                                            "Snat",
+                                                            "Dnat"
+                                                        ],
+                                                        "type": "string",
+                                                        "x-ms-enum": {
+                                                            "modelAsString": true,
+                                                            "name": "AzureFirewallNatRCActionType"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "priority": {
+                                                "description": "Priority of the NAT rule collection resource.",
+                                                "exclusiveMaximum": false,
+                                                "exclusiveMinimum": false,
+                                                "format": "int32",
+                                                "maximum": 65000,
+                                                "minimum": 100,
+                                                "type": "integer"
+                                            },
+                                            "provisioningState": {
+                                                "description": "The current provisioning state.",
+                                                "enum": [
+                                                    "Succeeded",
+                                                    "Updating",
+                                                    "Deleting",
+                                                    "Failed"
+                                                ],
+                                                "readOnly": true,
+                                                "type": "string",
+                                                "x-ms-enum": {
+                                                    "modelAsString": true,
+                                                    "name": "ProvisioningState"
+                                                }
+                                            },
+                                            "rules": {
+                                                "description": "Collection of rules used by a NAT rule collection.",
+                                                "items": {
+                                                    "description": "Properties of a NAT rule.",
+                                                    "properties": {
+                                                        "description": {
+                                                            "description": "Description of the rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "destinationAddresses": {
+                                                            "description": "List of destination IP addresses for this rule. Supports IP ranges, prefixes, and service tags.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "destinationPorts": {
+                                                            "description": "List of destination ports.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "name": {
+                                                            "description": "Name of the NAT rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "protocols": {
+                                                            "description": "Array of AzureFirewallNetworkRuleProtocols applicable to this NAT rule.",
+                                                            "items": {
+                                                                "description": "The protocol of a Network Rule resource",
+                                                                "enum": [
+                                                                    "TCP",
+                                                                    "UDP",
+                                                                    "Any",
+                                                                    "ICMP"
+                                                                ],
+                                                                "type": "string",
+                                                                "x-ms-enum": {
+                                                                    "modelAsString": true,
+                                                                    "name": "AzureFirewallNetworkRuleProtocol"
+                                                                }
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "sourceAddresses": {
+                                                            "description": "List of source IP addresses for this rule.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "translatedAddress": {
+                                                            "description": "The translated address for this NAT rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "translatedPort": {
+                                                            "description": "The translated port for this NAT rule.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            }
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "networkRuleCollections": {
+                            "description": "Collection of network rule collections used by Azure Firewall.",
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "description": "Reference to another subresource.",
+                                        "properties": {
+                                            "id": {
+                                                "description": "Resource ID.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "x-ms-azure-resource": true,
+                                        "type": "object"
+                                    }
+                                ],
+                                "description": "Network rule collection resource",
+                                "properties": {
+                                    "etag": {
+                                        "description": "Gets a unique read-only string that changes whenever the resource is updated.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "description": "Gets name of the resource that is unique within a resource group. This name can be used to access the resource.",
+                                        "type": "string"
+                                    },
+                                    "properties": {
+                                        "x-ms-client-flatten": true,
+                                        "description": "Properties of the network rule collection.",
+                                        "properties": {
+                                            "action": {
+                                                "description": "The action type of a rule collection",
+                                                "properties": {
+                                                    "type": {
+                                                        "description": "The type of action.",
+                                                        "enum": [
+                                                            "Allow",
+                                                            "Deny",
+                                                            "Alert"
+                                                        ],
+                                                        "type": "string",
+                                                        "x-ms-enum": {
+                                                            "modelAsString": true,
+                                                            "name": "AzureFirewallRCActionType"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "priority": {
+                                                "description": "Priority of the network rule collection resource.",
+                                                "exclusiveMaximum": false,
+                                                "exclusiveMinimum": false,
+                                                "format": "int32",
+                                                "maximum": 65000,
+                                                "minimum": 100,
+                                                "type": "integer"
+                                            },
+                                            "provisioningState": {
+                                                "description": "The current provisioning state.",
+                                                "enum": [
+                                                    "Succeeded",
+                                                    "Updating",
+                                                    "Deleting",
+                                                    "Failed"
+                                                ],
+                                                "readOnly": true,
+                                                "type": "string",
+                                                "x-ms-enum": {
+                                                    "modelAsString": true,
+                                                    "name": "ProvisioningState"
+                                                }
+                                            },
+                                            "rules": {
+                                                "description": "Collection of rules used by a network rule collection.",
+                                                "items": {
+                                                    "description": "Properties of the network rule.",
+                                                    "properties": {
+                                                        "description": {
+                                                            "description": "Description of the rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "destinationAddresses": {
+                                                            "description": "List of destination IP addresses.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "destinationPorts": {
+                                                            "description": "List of destination ports.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "name": {
+                                                            "description": "Name of the network rule.",
+                                                            "type": "string"
+                                                        },
+                                                        "protocols": {
+                                                            "description": "Array of AzureFirewallNetworkRuleProtocols.",
+                                                            "items": {
+                                                                "description": "The protocol of a Network Rule resource",
+                                                                "enum": [
+                                                                    "TCP",
+                                                                    "UDP",
+                                                                    "Any",
+                                                                    "ICMP"
+                                                                ],
+                                                                "type": "string",
+                                                                "x-ms-enum": {
+                                                                    "modelAsString": true,
+                                                                    "name": "AzureFirewallNetworkRuleProtocol"
+                                                                }
+                                                            },
+                                                            "type": "array"
+                                                        },
+                                                        "sourceAddresses": {
+                                                            "description": "List of source IP addresses for this rule.",
+                                                            "items": {
+                                                                "type": "string"
+                                                            },
+                                                            "type": "array"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            }
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "provisioningState": {
+                            "description": "The current provisioning state.",
+                            "enum": [
+                                "Succeeded",
+                                "Updating",
+                                "Deleting",
+                                "Failed"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ProvisioningState"
+                            }
+                        },
+                        "threatIntelMode": {
+                            "description": "The operation mode for Threat Intelligence.",
+                            "enum": [
+                                "Alert",
+                                "Deny",
+                                "Off"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "AzureFirewallThreatIntelMode"
+                            }
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
